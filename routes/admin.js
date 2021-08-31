@@ -28,8 +28,21 @@ router.get('/', testMiddleWare, testMiddleWare2, (req, res) =>{
 router.get('/products', (req, res) =>{
     // res.send('products')
     res.render('admin/products.html', {
-        message : "<h1>hello world</h1>"
+        message : `<h1>hello world</h1>`
     })
 });
+
+router.get('/products/write', (req, res) =>{
+    
+    res.render('admin/write.html')
+     
+});
+
+router.post('/products/write', (req, res) =>{
+    
+    res.send(req.body);
+     
+});
+
 
 module.exports = router;
