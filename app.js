@@ -21,8 +21,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 app.use('/uploads', express.static('uploads'));
+
 app.use((req, res, next)=>{
     app.locals.islogin = false;
+    app.locals.req_path = req.path;
     next();
 });
 
@@ -49,8 +51,6 @@ app.use((req, res, _) => {
 app.use((req, res, _) => {
     res.status(500).render('common/500.html')
 });
-
-
 
 
 app.listen(port, ()=>{
