@@ -6,7 +6,7 @@ const bodyParser = require('body-parser'); /*미들웨어 내장된 객체*/
 
 
 const admin = require('./routes/admin');
-// const contacts = require('./routes/contacts');
+
 
 const app = express();
 const port = 3000;
@@ -21,7 +21,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 app.use('/uploads', express.static('uploads'));
-
+app.use((req, res, next)=>{
+    app.locals.islogin = false;
+    next();
+});
 
 app.get('/', (req, res) => {
     res.send('hello express');
@@ -38,6 +41,17 @@ function vipMiddleWare(req, res, next) {
 
 app.use('/admin' ,vipMiddleWare, admin);
 //app.use('/contacts', contacts);
+
+app.use((req, res, _) => {
+    res.status(400).render('common/404.html')
+});
+
+app.use((req, res, _) => {
+    res.status(500).render('common/500.html')
+});
+
+
+
 
 app.listen(port, ()=>{
     console.log('Express sadsadsadadsa' , port);
