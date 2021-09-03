@@ -4,7 +4,7 @@ const ctrl = require('./admin.ctrl');
 
 function testMiddleWare( req, res, next ){
     console.log('첫번째 미들웨어');
-    next();
+    next();       
 }
 
 function testMiddleWare2( req, res, next ){
